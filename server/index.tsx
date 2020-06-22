@@ -14,12 +14,18 @@ const PORT = 5000;
 
 const app = express();
 
+// app.get('/getNews', async (req, res) => {
+//   console.log('something');
+//   // const result = await fetch(`https://hn.algolia.com/api/v1/search?page=1`);
+//   res.send('something');
+// });
+
 app.use("^/$", (req, res, next) => {
   const sheet = new ServerStyleSheet();
 
   const body = renderToString(sheet.collectStyles(<App />));
   const styles = sheet.getStyleTags();
-  const title = 'Server side Rendering with Styled Components';
+  const title = 'Hacker New Assignment';
 
   res.send(
     Html({

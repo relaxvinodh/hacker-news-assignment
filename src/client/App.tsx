@@ -1,16 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  border: 1px solid red;
-`;
+import { RecoilRoot } from 'recoil';
+import NewsList from '../components/NewsList';
+import { theme, ThemeProvider } from '../theme';
 
 const App = () => (
-  <>
-  <Container>
-    Test
-  </Container>
-</>
+  <RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <NewsList />
+    </ThemeProvider>
+  </RecoilRoot>
 );
 
 export default App;
