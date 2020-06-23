@@ -1,58 +1,51 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { HASH_SPACE } from '../../constants';
-import { newsListQuery, persistenceData, UpdatedState } from '../../store';
-import { getUpdatedData } from '../../store/helpers';
+import { newsListUpdated, persistenceData } from '../../store';
 import { HitType, SavedNewsItem } from '../../store/types';
 import { ThemeVariation } from '../../theme';
 import { getTimeSince } from '../../utils';
-import { hashWithSpaceSelector } from '../../utils/hash/atoms';
 import {
-  Table, TableField, TableLabel, TableRow,
+  Table, TableField, TableLabel, TableRow, TableFieldGroup,
 } from '../table';
 import {
-  Author, Details, TableFieldClickable, UpVoteIcon, Url,
+  DarkText, Details, TableFieldClickable, UpVoteIcon, Url, HideText,
 } from './styled';
 
 const ListItem:React.FC = () => {
-  const { page } = useRecoilValue(hashWithSpaceSelector(HASH_SPACE.newsScope));
-  const data = useRecoilValue(newsListQuery(page));
   const saveItem = useSetRecoilState(persistenceData);
-  const updatedData = useRecoilValue(UpdatedState);
-  const { hits } = data;
-
-  const UpdatedDataRows = useMemo(() => getUpdatedData(updatedData, hits), [hits, updatedData]);
-  const handleUpVote = useCallback(({ id, points, hidden }: SavedNewsItem) => {
-    saveItem({
-      id,
-      points: (points ?? 0) + 1,
-      hidden: hidden ?? null,
-    });
+  const rows = useRecoilValue(newsListUpdated);
+  const handleAction = useCallback(({ id, points, hidden }: SavedNewsItem) => {
+    saveItem({ id, points, hidden });
   }, [saveItem]);
 
   const renderRow = (row?: HitType) => (
-    <TableRow wrapping={{ under: 'md' }} key={row?.objectID}>
-      <TableField minWidth="30" ratio="0.5">
-        <TableLabel>Comments</TableLabel>
-        <div>{row?.num_comments}</div>
-      </TableField>
-      <TableField minWidth="300" ratio="0.5">
-        <TableLabel>Vote Count</TableLabel>
-        <div>{row?.points}</div>
-      </TableField>
-      <TableFieldClickable
-        minWidth="30"
-        ratio="0.5"
-        onClick={
-              () => handleUpVote({ id: row?.objectID, points: row?.points, hidden: row?.hidden })
-            }
-      >
-        <TableLabel>Up Vote</TableLabel>
-        {row && <UpVoteIcon />}
-      </TableFieldClickable>
+    <TableRow key={row?.objectID} wrapping={{ under: 'sm' }}>
+      <TableFieldGroup ratio="2" wrapping={{ under: 'md' }}>
+
+        <TableField minWidth="30" ratio="0.5">
+          <TableLabel>Comments</TableLabel>
+          <div>{row?.num_comments}</div>
+        </TableField>
+        <TableField minWidth="300" ratio="0.5">
+          <TableLabel>Vote Count</TableLabel>
+          <div>{row?.points}</div>
+        </TableField>
+        <TableFieldClickable
+          minWidth="30"
+          ratio="0.5"
+          onClick={() => handleAction({
+            id: row?.objectID,
+            points: ((row?.points ?? 0) + 1),
+            hidden: row?.hidden,
+          })}
+        >
+          <TableLabel>Up Vote</TableLabel>
+          {row && <UpVoteIcon />}
+        </TableFieldClickable>
+      </TableFieldGroup>
       <TableField minWidth="200" ratio="5">
         <TableLabel>Description</TableLabel>
-        {row?.title && (
+        {!row?.hidden && (
           <>
             <span>{row?.title}</span>
             <Details>
@@ -65,9 +58,20 @@ const ListItem:React.FC = () => {
               {' '}
               by
               {' '}
-              <Author>{row?.author}</Author>
+              <DarkText>{row?.author}</DarkText>
               {' '}
               {getTimeSince(row?.created_at)}
+              {' [ '}
+              <HideText onClick={() => handleAction({
+                id: row?.objectID,
+                points: row?.points,
+                hidden: true,
+              })}
+              >
+                Hide
+
+              </HideText>
+              {' ] '}
             </Details>
           </>
         )}
@@ -77,7 +81,7 @@ const ListItem:React.FC = () => {
 
   return (
     <ThemeVariation sizing="small">
-      <Table rows={UpdatedDataRows} renderRow={renderRow} />
+      <Table rows={rows} renderRow={renderRow} />
     </ThemeVariation>
   );
 };

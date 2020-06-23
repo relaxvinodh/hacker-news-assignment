@@ -17,7 +17,7 @@ const getCircleXY = <T, _>({
   svgWidth, svgHeight, totalPoints, key, maxValue, idx, item, radius,
 }: getCircleXYProps<T>) => {
   const cx = `${idx * (svgWidth / totalPoints) + (svgWidth / totalPoints / 2)}`;
-  const cy = `${svgHeight - (item[key] / maxValue) * svgHeight || 0}`;
+  const cy = `${svgHeight - ((item[key]) as unknown as number / maxValue) * svgHeight || 0}`;
   const r = radius ?? 3;
   return {
     cx, cy, r,

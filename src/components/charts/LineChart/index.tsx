@@ -1,22 +1,23 @@
 import React, { useContext } from 'react';
+import { styled } from '../../../theme';
+import BottomLegend from '../components/BottomLegend';
+import ChartContainer from '../components/ChartContainer';
+import Circle, { SeriesProps } from '../components/Circle';
+import { MyItemsHover } from '../components/ItemsHover';
+import SeriesContainer from '../components/SeriesContainer';
+import SvgContainer from '../components/SvgContainer';
 import { ChartContext, SvgContext } from '../contexts';
 import { getMaxValue } from '../helpers';
 import calculateLinePoints from './calculatePoints';
-import ChartContainer from '../components/ChartContainer';
-import BottomLegend from '../components/BottomLegend';
-import SeriesContainer from '../components/SeriesContainer';
-import SvgContainer from '../components/SvgContainer';
-import { MyItemsHover } from '../components/ItemsHover';
-import Circle, { SeriesProps } from '../components/Circle';
 
 const LineSeries = <T, _>({ prop, ...props }: SeriesProps<T> & Omit<React.SVGProps<SVGPolylineElement>, 'd'>) => {
   const chartContext = useContext(ChartContext);
   const svgContext = useContext(SvgContext);
   const maxValue = getMaxValue(prop, chartContext?.data ?? []);
   const lineData = calculateLinePoints({
-    svgWidth: svgContext?.width,
-    svgHeight: svgContext?.height,
-    data: chartContext?.data,
+    svgWidth: svgContext?.width as number,
+    svgHeight: svgContext?.height as number,
+    data: chartContext?.data as T[],
     key: prop,
     maxValue,
   });
@@ -25,18 +26,23 @@ const LineSeries = <T, _>({ prop, ...props }: SeriesProps<T> & Omit<React.SVGPro
   );
 };
 
+const SeriesContainerStyled = styled(SeriesContainer)`
+  width: 70%;
+`;
+
 const LineChart = <T, _>({
-  data, renderLegend,
-}:{ data: T[], renderLegend: (point: T) => JSX.Element}) => (
-  <ChartContainer data={data} style={{ height: '300px', width: '100%' }}>
-    <BottomLegend render={renderLegend} />
-    <SeriesContainer>
+  data, renderLegend, prop,
+}:{ data: T[], renderLegend: (point: T) => JSX.Element, prop: keyof T,
+}) => (
+  <ChartContainer data={data} style={{ height: '150px', width: '100%' }}>
+    <BottomLegend render={renderLegend} style={{ right: '10px', top: '10px', left: 'unset' }} />
+    <SeriesContainerStyled>
       <SvgContainer>
-        <LineSeries prop="votes" stroke="green" strokeWidth="2px" />
-        <Circle prop="votes" stroke="red" />
+        <LineSeries prop={prop} stroke="green" strokeWidth="2px" />
+        <Circle prop={prop} stroke="red" />
       </SvgContainer>
       <MyItemsHover />
-    </SeriesContainer>
+    </SeriesContainerStyled>
   </ChartContainer>
   );
 

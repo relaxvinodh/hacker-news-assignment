@@ -1,10 +1,9 @@
-import React, { Suspense, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { HASH_SPACE } from '../../constants';
 import { hashWithSpaceSelector } from '../../utils/hash/atoms';
-import BusyBox from '../BusyBox';
 import ListItem from './ListItem';
-import { Button, ButtonContainer } from './styled';
+import { Button, ButtonContainer, PageDisplayed } from './styled';
 
 const NewsList: React.FC = () => {
   const [{ page }, setHash] = useRecoilState(hashWithSpaceSelector(HASH_SPACE.newsScope));
@@ -24,16 +23,20 @@ const NewsList: React.FC = () => {
   }, [page]);
 
   return (
-    <Suspense fallback={<BusyBox />}>
+    <>
       <ListItem />
       <ButtonContainer>
         <Button onClick={page === '1' ? undefined : handlePrevious}>Previous</Button>
-        {'  '}
         |
-        {'  '}
         <Button onClick={handleNext}>Next</Button>
+        <PageDisplayed>
+          (Page Disaplyed:
+          {' '}
+          {page}
+          )
+        </PageDisplayed>
       </ButtonContainer>
-    </Suspense>
+    </>
   );
 };
 

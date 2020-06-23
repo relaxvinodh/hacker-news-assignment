@@ -53,3 +53,23 @@ export const newsListQuery = selectorFamily({
     return updatedData as NewsBaseType;
   },
 });
+
+export const newsListUpdated = selector({
+  key: 'newsListUpdated',
+  get: ({ get }) => {
+    const { page } = get(hashWithSpaceSelector(HASH_SPACE.newsScope));
+    const data = get(newsListQuery(page));
+    const updatedData = get(UpdatedState);
+    const { hits } = data;
+    const UpdatedDataRows = getUpdatedData(updatedData, hits);
+    return UpdatedDataRows;
+  },
+});
+
+export const chartData = selector({
+  key: 'chartData',
+  get: ({ get }) => {
+    const data = get(newsListUpdated);
+    return R.map(R.pick(['objectID', 'points']), data);
+  },
+});

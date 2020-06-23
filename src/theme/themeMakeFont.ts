@@ -1,7 +1,7 @@
 /** Regular font. */
 export const FF_NORMAL = '"Roboto", sans-serif';
 /** Light variant of the font. */
-export const FF_LIGHT = '"Segoe UI light", sans-serif';
+export const FF_LIGHT = '"Roboto light", sans-serif';
 
 /**
  * Create theme font object.

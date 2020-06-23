@@ -9,4 +9,6 @@ export const getDomain = (url: string) => {
   return out;
 };
 
-export const getTimeSince = (time: string) => moment(new Date(time)).fromNow();
+export const getTimeSince = (
+  time: string | undefined,
+) => moment(new Date(time ?? Date.now())).fromNow();

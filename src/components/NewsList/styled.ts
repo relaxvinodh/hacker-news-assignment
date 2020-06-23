@@ -34,9 +34,13 @@ export const Url = styled.a.attrs({
   ${SmallFont}
 `;
 
-export const Author = styled.span`
+export const DarkText = styled.span`
   color: ${({ theme }) => theme.colors.regular};
   ${SmallFont};
+`;
+
+export const HideText = styled(DarkText)`
+  cursor: pointer;
 `;
 
 export const TableFieldClickable = styled(TableField)`
@@ -44,8 +48,16 @@ export const TableFieldClickable = styled(TableField)`
 `;
 
 export const Button = styled.span`
-  color: '#f5ad7b';
+  color: ${({ onClick, theme }) => (onClick ? theme.colors.link : theme.colors.regular)};
   cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+  margin: 0 5px;
+`;
+
+export const PageDisplayed = styled.span`
+  color: ${({ theme }) => theme.colors.regular};
+  background-color: ${({ theme }) => theme.backgrounds.highlight};
+  font-size: ${({ theme }) => theme.sizing.fonts.boldText.size};
+  font-weight: ${({ theme }) => theme.sizing.fonts.boldText.weight};
 `;
 
 export const ButtonContainer = styled.div`

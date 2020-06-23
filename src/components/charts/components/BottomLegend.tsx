@@ -5,6 +5,7 @@ import { ChartContext } from '../contexts';
 type LegendProps<T> = {
   render: (point: T) => JSX.Element,
   defaultContent?: JSX.Element | string,
+  style?: React.CSSProperties,
 };
 
 export const BottomLegendWrapper = styled.div`
@@ -21,12 +22,12 @@ export const BottomLegendItem = styled.div`
 `;
 
 const BottomLegend = <T, _>({
-  render, children,
+  render, children, style,
 }: LegendProps<T> & { children?: React.ReactNode}) => {
   const chartContext = useContext(ChartContext);
 
   return (
-    <BottomLegendWrapper>
+    <BottomLegendWrapper style={style}>
       {children && (
         <BottomLegendItem data-default>
           {children}

@@ -13,7 +13,7 @@ const calculateLinePoints = <T, _>({
     .map(
       (item, i) => {
         if (typeof item[key] !== 'undefined' && item[key] !== null) {
-          const point = svgHeight - (item[key] / maxValue) * svgHeight || 0;
+          const point = svgHeight - ((item[key]) as unknown as number / maxValue) * svgHeight || 0;
           return `${i * (svgWidth / data.length) + (svgWidth / data.length / 2)},${Number.isFinite(point) ? point : 0}`;
         }
         return '';

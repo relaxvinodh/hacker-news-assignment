@@ -62,4 +62,4 @@ const renderLegend = (point: SummedRecord) => (
   </>
 );
 
-export const lineChartWithLegend = () => <LineChart data={summed} renderLegend={renderLegend} />;
+export const lineChartWithLegend = () => <LineChart prop="votes" data={summed} renderLegend={renderLegend} />;
