@@ -1,53 +1,44 @@
 import * as R from 'ramda';
-import { atom, selector, selectorFamily } from 'recoil';
+import {
+  atom, DefaultValue, selector, selectorFamily,
+} from 'recoil';
 import { getNews } from '../api';
+import { HASH_SPACE, SAVE_KEY } from '../constants';
 import { getDomain } from '../utils';
-import { HitType, NewsBaseType, SavedNewsItem } from './types';
-import { SAVE_KEY } from '../constants';
+import { hashWithSpaceSelector } from '../utils/hash/atoms';
 import { getUpdatedData } from './helpers';
+import { HitType, NewsBaseType, SavedNewsItem } from './types';
 
 const newsBaseProp = ['page', 'hits'];
 
 const hitsProp = ['objectID', 'num_comments', 'points', 'title', 'url', 'author', 'created_at'];
-
-export const pageNumberState = atom({
-  key: 'pageNumberState',
-  default: 1,
-});
-
 export const UpdatedState = atom<SavedNewsItem[]>({
   key: 'UpdatedState',
   default: [],
 });
 
-export const localStorageData = selector({
-  key: 'localStorageData',
-  get: ({ get }) => {
-    const pageNumber = get(pageNumberState);
-    const newsItems = window.localStorage.getItem(`${SAVE_KEY}-${pageNumber}`) ?? '[]';
-    return JSON.parse(newsItems) as SavedNewsItem[];
-  },
-});
-
 export const persistenceData = selector({
   key: 'persistenceData',
   get: ({ get }) => {
-    const savedItems = get(localStorageData);
-    return savedItems as SavedNewsItem[];
+    const { page } = get(hashWithSpaceSelector(HASH_SPACE.newsScope));
+    const savedItems = window.localStorage.getItem(`${SAVE_KEY}-${page}`) ?? '[]';
+    return JSON.parse(savedItems) as SavedNewsItem[];
   },
   set: ({ set, get }, newValue: any) => {
-    const pageNumber = get(pageNumberState);
-    const savedItems = get(localStorageData);
-    const existingItems = R.reject(R.propEq('id', newValue.id), savedItems);
+    const { page } = get(hashWithSpaceSelector(HASH_SPACE.newsScope));
+    const savedItems = window.localStorage.getItem(`${SAVE_KEY}-${page}`) ?? '[]';
+    const existingItems = R.reject(R.propEq('id', newValue.id), JSON.parse(savedItems));
     const recsToSave = R.concat(existingItems, [newValue]) as SavedNewsItem[];
-    window.localStorage.setItem(`${SAVE_KEY}-${pageNumber}`, JSON.stringify(recsToSave));
-    set(UpdatedState, recsToSave);
+    window.localStorage.setItem(`${SAVE_KEY}-${page}`, JSON.stringify(recsToSave));
+    if (!(newValue instanceof DefaultValue)) {
+      set(UpdatedState, recsToSave);
+    }
   },
 });
 
 export const newsListQuery = selectorFamily({
   key: 'newsListQuery',
-  get: (pageNumber: number) => async ({ get }) => {
+  get: (pageNumber: string) => async ({ get }) => {
     const response = await getNews<NewsBaseType>(pageNumber);
     const data = R.pick(newsBaseProp, response);
 

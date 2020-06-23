@@ -1,19 +1,39 @@
-import React from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { newsListQuery, pageNumberState } from '../../store';
+import React, { Suspense, useCallback, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { HASH_SPACE } from '../../constants';
+import { hashWithSpaceSelector } from '../../utils/hash/atoms';
 import BusyBox from '../BusyBox';
 import ListItem from './ListItem';
+import { Button, ButtonContainer } from './styled';
 
 const NewsList: React.FC = () => {
-  const pageNumber = useRecoilValue(pageNumberState);
-  const { state } = useRecoilValueLoadable(newsListQuery(pageNumber));
-  if (state === 'loading') {
-    return <BusyBox />;
-  }
+  const [{ page }, setHash] = useRecoilState(hashWithSpaceSelector(HASH_SPACE.newsScope));
+
+  useEffect(() => {
+    if (page == null) {
+      setHash({ page: '1' });
+    }
+  }, [page]);
+
+  const handleNext = useCallback(() => {
+    setHash({ page: String(Number(page) + 1) });
+  }, [page]);
+
+  const handlePrevious = useCallback(() => {
+    setHash({ page: String(Number(page) - 1) });
+  }, [page]);
+
   return (
-    <>
+    <Suspense fallback={<BusyBox />}>
       <ListItem />
-    </>
+      <ButtonContainer>
+        <Button onClick={page === '1' ? undefined : handlePrevious}>Previous</Button>
+        {'  '}
+        |
+        {'  '}
+        <Button onClick={handleNext}>Next</Button>
+      </ButtonContainer>
+    </Suspense>
   );
 };
 

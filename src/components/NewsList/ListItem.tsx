@@ -1,22 +1,22 @@
 import React, { useCallback, useMemo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  newsListQuery, pageNumberState, persistenceData, UpdatedState,
-} from '../../store';
+import { HASH_SPACE } from '../../constants';
+import { newsListQuery, persistenceData, UpdatedState } from '../../store';
 import { getUpdatedData } from '../../store/helpers';
 import { HitType, SavedNewsItem } from '../../store/types';
 import { ThemeVariation } from '../../theme';
 import { getTimeSince } from '../../utils';
+import { hashWithSpaceSelector } from '../../utils/hash/atoms';
 import {
   Table, TableField, TableLabel, TableRow,
 } from '../table';
 import {
-  Author, Details, UpVoteIcon, Url,
+  Author, Details, TableFieldClickable, UpVoteIcon, Url,
 } from './styled';
 
 const ListItem:React.FC = () => {
-  const pageNumber = useRecoilValue(pageNumberState);
-  const data = useRecoilValue(newsListQuery(pageNumber));
+  const { page } = useRecoilValue(hashWithSpaceSelector(HASH_SPACE.newsScope));
+  const data = useRecoilValue(newsListQuery(page));
   const saveItem = useSetRecoilState(persistenceData);
   const updatedData = useRecoilValue(UpdatedState);
   const { hits } = data;
@@ -40,14 +40,16 @@ const ListItem:React.FC = () => {
         <TableLabel>Vote Count</TableLabel>
         <div>{row?.points}</div>
       </TableField>
-      <TableField minWidth="30" ratio="0.5">
+      <TableFieldClickable
+        minWidth="30"
+        ratio="0.5"
+        onClick={
+              () => handleUpVote({ id: row?.objectID, points: row?.points, hidden: row?.hidden })
+            }
+      >
         <TableLabel>Up Vote</TableLabel>
-        <UpVoteIcon
-          onClick={
-            () => handleUpVote({ id: row?.objectID, points: row?.points, hidden: row?.hidden })
-          }
-        />
-      </TableField>
+        {row && <UpVoteIcon />}
+      </TableFieldClickable>
       <TableField minWidth="200" ratio="5">
         <TableLabel>Description</TableLabel>
         {row?.title && (

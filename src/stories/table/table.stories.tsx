@@ -23,14 +23,11 @@ export const baseUsage = () => {
         <TableField minWidth="150">
           <TableLabel hideWhen={{ under: 'xs' }}>Last update</TableLabel>
           <TableLabel hideWhen={{ over: 'xs' }}>Updated at</TableLabel>
-          {/* <div>{row && formatters.date.formatDate(row.lastUpdate)}</div> */}
           <TableLabel hideWhen={{ over: 'xs' }}>Updated by</TableLabel>
-          {/* <UpdatedByContainer>{row && row.lastUpdateBy}</UpdatedByContainer> */}
         </TableField>
         <TableFieldGroup ratio="3" wrapping={{ under: 'xs' }} hideWhen={{ under: 'sm' }}>
           <TableField minWidth="70">
             <TableLabel>Urgency</TableLabel>
-            {/* {row && formatUrgency(row.urgency)} */}
           </TableField>
           <TableField minWidth="70">
             <TableLabel>Tickets</TableLabel>

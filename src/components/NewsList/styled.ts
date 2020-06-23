@@ -1,4 +1,5 @@
-import { styled, css } from '../../theme';
+import { css, styled } from '../../theme';
+import { TableField } from '../table';
 
 export const UpVoteIcon = styled.span`
   cursor: pointer;
@@ -36,4 +37,18 @@ export const Url = styled.a.attrs({
 export const Author = styled.span`
   color: ${({ theme }) => theme.colors.regular};
   ${SmallFont};
+`;
+
+export const TableFieldClickable = styled(TableField)`
+  cursor: pointer;
+`;
+
+export const Button = styled.span`
+  color: '#f5ad7b';
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+`;
+
+export const ButtonContainer = styled.div`
+  /* background: black; */
+  text-align: center;
 `;

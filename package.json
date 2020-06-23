@@ -10,9 +10,8 @@
     "@types/node": "^12.12.47",
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.8",
-    "express": "^4.17.1",
     "moment": "^2.27.0",
-    "node": "10.0.0",
+    "qs": "6.5.2",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -22,17 +21,13 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .ts,.tsx ./src/",
-    "server": "cd server && ts-node index.tsx",
-    "dev-server": "nodemon",
-    "start": "concurrently \"npm run dev-server\" \"npm run client\"",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
-    "v": "node -v"
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,8 +50,8 @@
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-create-react-app": "^3.1.2",
     "@storybook/react": "^5.3.19",
-    "@types/express": "^4.17.6",
     "@types/moment": "^2.13.0",
+    "@types/qs": "^6.9.1",
     "@types/ramda": "^0.27.6",
     "@types/styled-components": "^5.1.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
@@ -64,9 +59,6 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.4.0",
-    "concurrently": "^4.1.0",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.2"
+    "eslint-plugin-react-hooks": "^2.4.0"
   }
 }

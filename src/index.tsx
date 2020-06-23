@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './client/App';
+import { render } from 'react-dom';
+import App from './App';
 import './index.css';
 
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
