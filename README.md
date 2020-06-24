@@ -10,5 +10,5 @@ Have used [Recoil](https://recoiljs.org/) to handle store.
 
 Have used [GitHub Actions](https://github.com/features/actions) for CI and CD.
 
-### Builds Status - Can be viewed here - [![](https://github.com/relaxvinodh/hacker-news-assignment/workflows/.github/workflows/deploy.yml/badge.svg)]
+### Builds Status - ![Build](https://github.com/relaxvinodh/hacker-news-assignment/workflows/CD/badge.svg?branch=master&event=push)
 
