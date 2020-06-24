@@ -15,7 +15,7 @@ jobs:
         with: 
           node-version: 12
       - name: Install
-        run: npm ci
+        run: npm install
       - name: Eslint
         run: npm run eslint
       - name: Test
