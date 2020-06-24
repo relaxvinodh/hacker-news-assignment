@@ -21,7 +21,7 @@ const ThemeVariation = ({ children, ...opts }: ThemeVariationProps) => {
   // ts-ignoring it because TypeScript is not able to see
   // that OptsType is correct for selected variation
 
-  const foundVariants = Object.keys(opts)
+  const foundVariants: any = Object.keys(opts)
   // @ts-ignore
     .filter((key: OverrideKey) => variations[key] && !!(variations[key][opts[key]]));
 

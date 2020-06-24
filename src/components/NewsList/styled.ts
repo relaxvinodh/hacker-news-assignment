@@ -1,5 +1,5 @@
 import { css, styled } from '../../theme';
-import { TableField } from '../table';
+import { TableField, TableHeader } from '../table';
 
 export const UpVoteIcon = styled.span`
   cursor: pointer;
@@ -53,14 +53,23 @@ export const Button = styled.span`
   margin: 0 5px;
 `;
 
-export const PageDisplayed = styled.span`
+const HighlightedFontCss = css`
   color: ${({ theme }) => theme.colors.regular};
   background-color: ${({ theme }) => theme.backgrounds.highlight};
   font-size: ${({ theme }) => theme.sizing.fonts.boldText.size};
   font-weight: ${({ theme }) => theme.sizing.fonts.boldText.weight};
 `;
 
+export const PageDisplayed = styled.span`
+  ${HighlightedFontCss};
+`;
+
+export const TableContainer = styled.div`
+  ${TableHeader} {
+    ${HighlightedFontCss}
+  }
+`;
+
 export const ButtonContainer = styled.div`
-  /* background: black; */
   text-align: center;
 `;
