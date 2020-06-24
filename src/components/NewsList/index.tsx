@@ -12,15 +12,15 @@ const NewsList: React.FC = () => {
     if (page == null) {
       setHash({ page: '1' });
     }
-  }, [page]);
+  }, [page, setHash]);
 
   const handleNext = useCallback(() => {
     setHash({ page: String(Number(page) + 1) });
-  }, [page]);
+  }, [page, setHash]);
 
   const handlePrevious = useCallback(() => {
     setHash({ page: String(Number(page) - 1) });
-  }, [page]);
+  }, [page, setHash]);
 
   return (
     <>
@@ -30,7 +30,7 @@ const NewsList: React.FC = () => {
         |
         <Button onClick={handleNext}>Next</Button>
         <PageDisplayed>
-          (Page Disaplyed:
+          (Page Displayed:
           {' '}
           {page}
           )

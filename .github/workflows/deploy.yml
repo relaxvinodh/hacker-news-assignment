@@ -9,15 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - users: actions/setup-node@master
-      with: 
-        node-version: 12
-    - name: Install
-      run: npm ci
-    - name: Eslint
-      run: npm run eslint
-    - name: Test
-      run: npm run test
-    - name: Deploy
-      run: npm run deploy
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with: 
+          node-version: 12
+      - name: Install
+        run: npm install
+      - name: Eslint
+        run: npm run eslint
+      - name: Test
+        run: npm run test
+      - name: Deploy
+        run: npm run deploy

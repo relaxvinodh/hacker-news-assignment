@@ -8,7 +8,7 @@ import {
   Table, TableField, TableLabel, TableRow, TableFieldGroup,
 } from '../table';
 import {
-  DarkText, Details, TableFieldClickable, UpVoteIcon, Url, HideText,
+  DarkText, Details, TableFieldClickable, UpVoteIcon, Url, HideText, TableContainer,
 } from './styled';
 
 const ListItem:React.FC = () => {
@@ -21,7 +21,6 @@ const ListItem:React.FC = () => {
   const renderRow = (row?: HitType) => (
     <TableRow key={row?.objectID} wrapping={{ under: 'sm' }}>
       <TableFieldGroup ratio="2" wrapping={{ under: 'md' }}>
-
         <TableField minWidth="30" ratio="0.5">
           <TableLabel>Comments</TableLabel>
           <div>{row?.num_comments}</div>
@@ -45,7 +44,7 @@ const ListItem:React.FC = () => {
       </TableFieldGroup>
       <TableField minWidth="200" ratio="5">
         <TableLabel>Description</TableLabel>
-        {!row?.hidden && (
+        {row && !row.hidden && (
           <>
             <span>{row?.title}</span>
             <Details>
@@ -80,7 +79,9 @@ const ListItem:React.FC = () => {
 
   return (
     <ThemeVariation sizing="small">
-      <Table rows={rows} renderRow={renderRow} />
+      <TableContainer>
+        <Table rows={rows} renderRow={renderRow} />
+      </TableContainer>
     </ThemeVariation>
   );
 };
