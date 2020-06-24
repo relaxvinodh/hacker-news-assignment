@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .ts,.tsx ./src/",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "v": "node -v"
   },
   "eslintConfig": {
     "extends": "react-app"

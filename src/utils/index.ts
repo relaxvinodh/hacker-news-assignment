@@ -10,5 +10,5 @@ export const getDomain = (url: string) => {
 };
 
 export const getTimeSince = (
-  time: string | undefined,
+  time: string | undefined | number,
 ) => moment(new Date(time ?? Date.now())).fromNow();

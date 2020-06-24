@@ -69,7 +69,6 @@ const ListItem:React.FC = () => {
               })}
               >
                 Hide
-
               </HideText>
               {' ] '}
             </Details>
