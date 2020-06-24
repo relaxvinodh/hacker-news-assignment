@@ -2,10 +2,8 @@ name: CI
 
 on:
   pull_request:
-  push:
     branches: 
       - master
-      - dev
 
 jobs:
   build:
@@ -13,11 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - users: actions/setup-node@v1
+      with: 
+        node-version: 12
     - name: Install
-      run: npm install
+      run: npm ci
     - name: Eslint
       run: npm run eslint
     - name: Test
       run: npm run test
-    - name: Build and Deploy
-      run: npm run deploy
+    - name: Build
+      run: npm run build
