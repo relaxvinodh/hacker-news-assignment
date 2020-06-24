@@ -19,8 +19,6 @@
   },
   "plugins": ["code-complexity", "@typescript-eslint"],
   "rules": {
-    "code-complexity/max-file-effort": "off",
-    "code-complexity/max-line-effort": "off",
     "react/prop-types": "off",
     "import/extensions": ["error", "always", {
       "js": "never",
