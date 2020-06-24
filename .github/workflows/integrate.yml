@@ -15,16 +15,10 @@ jobs:
         with: 
           node-version: 12
       - name: Install
-        run: npm install
+        run: npm ci
       - name: Eslint
         run: npm run eslint
       - name: Test
         run: npm run test
       - name: Build
         run: npm run build
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.5.5
-        with:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build

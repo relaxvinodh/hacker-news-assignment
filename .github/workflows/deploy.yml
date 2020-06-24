@@ -19,5 +19,11 @@ jobs:
         run: npm run eslint
       - name: Test
         run: npm run test
-      - name: Deploy
-        run: npm run deploy
+      - name: Build
+        run: npm run build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.5.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
