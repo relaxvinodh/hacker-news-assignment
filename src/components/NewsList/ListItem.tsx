@@ -18,64 +18,71 @@ const ListItem:React.FC = () => {
     saveItem({ id, points, hidden });
   }, [saveItem]);
 
-  const renderRow = (row?: HitType) => (
-    <TableRow key={row?.objectID} wrapping={{ under: 'sm' }}>
-      <TableFieldGroup ratio="2" wrapping={{ under: 'md' }}>
-        <TableField minWidth="30" ratio="0.5">
-          <TableLabel>Comments</TableLabel>
-          <div>{row?.num_comments}</div>
-        </TableField>
-        <TableField minWidth="300" ratio="0.5">
-          <TableLabel>Vote Count</TableLabel>
-          <div>{row?.points}</div>
-        </TableField>
-        <TableFieldClickable
-          minWidth="30"
-          ratio="0.5"
-          onClick={() => handleAction({
-            id: row?.objectID,
-            points: ((row?.points ?? 0) + 1),
-            hidden: row?.hidden,
-          })}
-        >
-          <TableLabel>Up Vote</TableLabel>
-          {row && <UpVoteIcon />}
-        </TableFieldClickable>
-      </TableFieldGroup>
-      <TableField minWidth="200" ratio="5">
-        <TableLabel>Description</TableLabel>
-        {row && !row.hidden && (
-          <>
-            <span>{row?.title}</span>
-            <Details>
-              {' '}
-              (
-              {' '}
-              <Url href={row?.url}>{row?.shortUrl}</Url>
-              {' '}
-              )
-              {' '}
-              by
-              {' '}
-              <DarkText>{row?.author}</DarkText>
-              {' '}
-              {getTimeSince(row?.created_at)}
-              {' [ '}
-              <HideText onClick={() => handleAction({
+  const renderRow = (row?: HitType) => {
+    if (row && row.hidden) {
+      return <></>;
+    }
+    return (
+      (
+        <TableRow key={row?.objectID} wrapping={{ under: 'sm' }}>
+          <TableFieldGroup ratio="2" wrapping={{ under: 'md' }}>
+            <TableField minWidth="30" ratio="0.5">
+              <TableLabel>Comments</TableLabel>
+              <div>{row?.num_comments}</div>
+            </TableField>
+            <TableField minWidth="300" ratio="0.5">
+              <TableLabel>Vote Count</TableLabel>
+              <div>{row?.points}</div>
+            </TableField>
+            <TableFieldClickable
+              minWidth="30"
+              ratio="0.5"
+              onClick={() => handleAction({
                 id: row?.objectID,
-                points: row?.points,
-                hidden: true,
+                points: ((row?.points ?? 0) + 1),
+                hidden: row?.hidden,
               })}
-              >
-                Hide
-              </HideText>
-              {' ] '}
-            </Details>
-          </>
-        )}
-      </TableField>
-    </TableRow>
-  );
+            >
+              <TableLabel>Up Vote</TableLabel>
+              {row && <UpVoteIcon />}
+            </TableFieldClickable>
+          </TableFieldGroup>
+          <TableField minWidth="200" ratio="5">
+            <TableLabel>Description</TableLabel>
+            {row && (
+            <>
+              <span>{row?.title}</span>
+              <Details>
+                {' '}
+                (
+                {' '}
+                <Url href={row?.url}>{row?.shortUrl}</Url>
+                {' '}
+                )
+                {' '}
+                by
+                {' '}
+                <DarkText>{row?.author}</DarkText>
+                {' '}
+                {getTimeSince(row?.created_at)}
+                {' [ '}
+                <HideText onClick={() => handleAction({
+                  id: row?.objectID,
+                  points: row?.points,
+                  hidden: true,
+                })}
+                >
+                  Hide
+                </HideText>
+                {' ] '}
+              </Details>
+            </>
+            )}
+          </TableField>
+        </TableRow>
+      )
+    );
+  };
 
   return (
     <ThemeVariation sizing="small">

@@ -3,7 +3,7 @@ const baseUrl = 'https://hn.algolia.com/api/v1/search';
 
 export const getNews = async <T>(page: string): Promise<T> => {
   try {
-    const res = await fetch(`${baseUrl}?page=${Number(page)}`);
+    const res = await fetch(`${baseUrl}?page=${Number(page)}&query=react&hitsPerPage=15`);
     return res.json();
   } catch (err) {
     throw new Error('Unable to fetch news');

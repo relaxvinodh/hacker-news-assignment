@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { styled } from '../../../theme';
-import BottomLegend from '../components/BottomLegend';
+import Legend from '../components/Legend';
 import ChartContainer from '../components/ChartContainer';
 import Circle, { SeriesProps } from '../components/Circle';
 import { MyItemsHover } from '../components/ItemsHover';
 import SeriesContainer from '../components/SeriesContainer';
-import SvgContainer from '../components/SvgContainer';
+import SvgContainer, { PositionedSvg } from '../components/SvgContainer';
 import { ChartContext, SvgContext } from '../contexts';
 import { getMaxValue } from '../helpers';
 import calculateLinePoints from './calculatePoints';
@@ -26,23 +26,29 @@ const LineSeries = <T, _>({ prop, ...props }: SeriesProps<T> & Omit<React.SVGPro
   );
 };
 
-const SeriesContainerStyled = styled(SeriesContainer)`
+const Wrapper = styled.div`
   width: 70%;
+  ${PositionedSvg} {
+    border-left: 2px dashed ${({ theme }) => theme.colors.link};
+    border-bottom: 2px dashed ${({ theme }) => theme.colors.link};
+  }
 `;
 
 const LineChart = <T, _>({
   data, renderLegend, prop,
 }:{ data: T[], renderLegend: (point: T) => JSX.Element, prop: keyof T,
 }) => (
-  <ChartContainer data={data} style={{ height: '150px', width: '100%' }}>
-    <BottomLegend render={renderLegend} style={{ right: '10px', top: '10px', left: 'unset' }} />
-    <SeriesContainerStyled>
-      <SvgContainer>
-        <LineSeries prop={prop} stroke="green" strokeWidth="2px" />
-        <Circle prop={prop} stroke="red" />
-      </SvgContainer>
-      <MyItemsHover />
-    </SeriesContainerStyled>
+  <ChartContainer data={data} style={{ height: '150px', width: '100%', display: 'flex' }}>
+    <Wrapper>
+      <SeriesContainer style={{ width: 'inherit' }}>
+        <SvgContainer>
+          <LineSeries prop={prop} stroke="#3498db" strokeWidth="2px" />
+          <Circle prop={prop} stroke="black" />
+        </SvgContainer>
+        <MyItemsHover />
+      </SeriesContainer>
+    </Wrapper>
+    <Legend render={renderLegend} style={{ position: 'static' }} />
   </ChartContainer>
   );
 

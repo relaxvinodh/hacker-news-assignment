@@ -20,4 +20,5 @@ export function stopAndProcessEvent<
 export const getMaxValue = <T extends keyof K, K>(prop: T, data: K[]) => R.pipe(
   R.map(R.prop(prop as string) as (rec: K) => number),
   R.apply(Math.max),
+  R.add(30),
 )(data);

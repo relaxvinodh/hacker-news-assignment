@@ -2,15 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { styled } from '../../../theme';
 import { SvgContext, SvgContextValue } from '../contexts';
 
-const PositionedSvg = styled.svg`
-position: absolute;
-left: 0;
-top: 0;
-right: 0;
-bottom: 0;
-width: 100%;
-height: 100%;
-margin: 7px;
+export const PositionedSvg = styled.svg`
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const SvgContainer: React.FC = ({ children }) => {

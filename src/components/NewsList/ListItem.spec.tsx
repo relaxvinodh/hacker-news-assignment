@@ -10,7 +10,7 @@ describe('List Item Component', () => {
       id: number,
       name: string,
     };
-    const rows: Row[] = [{ id: 1, name: 'first row' }, { id: 2, name: 'second row' }];
+    const rows: Row[] = [{ id: 1, name: 'first row' }];
     const renderRow = (row?: Row) => (
       <TableRow key={row?.id}>
         <TableField>
@@ -28,7 +28,7 @@ describe('List Item Component', () => {
       <Table rows={rows} renderRow={renderRow} />,
     );
 
-    expect(wrapper.find('[data-test-mark="id"]')).toHaveLength(2);
-    expect(wrapper.find('[data-test-mark="name"]')).toHaveLength(2);
+    expect(wrapper.find('[data-test-mark="id"]').text()).toEqual('1');
+    expect(wrapper.find('[data-test-mark="name"]').text()).toEqual('first row');
   });
 });
