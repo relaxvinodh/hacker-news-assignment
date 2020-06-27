@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/hacker-news-assignment/static/css/main.efdc47a1.chunk.css",
-    "main.js": "/hacker-news-assignment/static/js/main.0f428caa.chunk.js",
-    "main.js.map": "/hacker-news-assignment/static/js/main.0f428caa.chunk.js.map",
+    "main.js": "/hacker-news-assignment/static/js/main.476ede17.chunk.js",
+    "main.js.map": "/hacker-news-assignment/static/js/main.476ede17.chunk.js.map",
     "runtime-main.js": "/hacker-news-assignment/static/js/runtime-main.e560d5f6.js",
     "runtime-main.js.map": "/hacker-news-assignment/static/js/runtime-main.e560d5f6.js.map",
-    "static/js/2.ecc41ba8.chunk.js": "/hacker-news-assignment/static/js/2.ecc41ba8.chunk.js",
-    "static/js/2.ecc41ba8.chunk.js.map": "/hacker-news-assignment/static/js/2.ecc41ba8.chunk.js.map",
+    "static/js/2.e200559b.chunk.js": "/hacker-news-assignment/static/js/2.e200559b.chunk.js",
+    "static/js/2.e200559b.chunk.js.map": "/hacker-news-assignment/static/js/2.e200559b.chunk.js.map",
     "index.html": "/hacker-news-assignment/index.html",
-    "precache-manifest.dd55e5cadbcb2652615b9cc504d3c1a0.js": "/hacker-news-assignment/precache-manifest.dd55e5cadbcb2652615b9cc504d3c1a0.js",
+    "precache-manifest.1d34391c87f9656346f388afa4e3c581.js": "/hacker-news-assignment/precache-manifest.1d34391c87f9656346f388afa4e3c581.js",
     "service-worker.js": "/hacker-news-assignment/service-worker.js",
     "static/css/main.efdc47a1.chunk.css.map": "/hacker-news-assignment/static/css/main.efdc47a1.chunk.css.map",
-    "static/js/2.ecc41ba8.chunk.js.LICENSE.txt": "/hacker-news-assignment/static/js/2.ecc41ba8.chunk.js.LICENSE.txt"
+    "static/js/2.e200559b.chunk.js.LICENSE.txt": "/hacker-news-assignment/static/js/2.e200559b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e560d5f6.js",
-    "static/js/2.ecc41ba8.chunk.js",
+    "static/js/2.e200559b.chunk.js",
     "static/css/main.efdc47a1.chunk.css",
-    "static/js/main.0f428caa.chunk.js"
+    "static/js/main.476ede17.chunk.js"
   ]
 }
