@@ -18,7 +18,7 @@ const darkColors: ColorsBase = {
   borderLight: '#222222',
   borderAction: '#505050',
   regular: 'rgba(255, 255, 255, 0.9)',
-  link: '3498db',
+  link: '#3498db',
   textDescriptive: 'rgba(255, 255, 255, 0.6)',
   textDimmed: 'rgba(255, 255, 255, 0.4)',
   textRegular: 'rgba(255, 255, 255, 0.9)',

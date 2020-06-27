@@ -8,7 +8,7 @@ type LegendProps<T> = {
   style?: React.CSSProperties,
 };
 
-export const BottomLegendWrapper = styled.div`
+export const LegendWrapper = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -16,30 +16,30 @@ export const BottomLegendWrapper = styled.div`
   z-index: 2;
 `;
 
-export const BottomLegendItem = styled.div`
+export const LegendItem = styled.div`
   background-color: #ffffff22;
   display: none;
 `;
 
-const BottomLegend = <T, _>({
+const Legend = <T, _>({
   render, children, style,
 }: LegendProps<T> & { children?: React.ReactNode}) => {
   const chartContext = useContext(ChartContext);
 
   return (
-    <BottomLegendWrapper style={style}>
+    <LegendWrapper style={style}>
       {children && (
-        <BottomLegendItem data-default>
+        <LegendItem data-default>
           {children}
-        </BottomLegendItem>
+        </LegendItem>
       )}
       {chartContext?.data?.map?.((point, ix) => (
-        <BottomLegendItem key={ix} data-category={ix}>
+        <LegendItem key={ix} data-category={ix}>
           {render(point)}
-        </BottomLegendItem>
+        </LegendItem>
       ))}
-    </BottomLegendWrapper>
+    </LegendWrapper>
   );
 };
 
-export default BottomLegend;
+export default Legend;

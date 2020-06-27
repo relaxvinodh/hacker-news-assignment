@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BottomLegendWrapper } from './BottomLegend';
+import { LegendWrapper } from './Legend';
 
 const SeriesContainer = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const SeriesContainer = styled.div`
   right: 0;
   bottom: 0;
 
-  ${BottomLegendWrapper} + & {
+  ${LegendWrapper} + & {
     bottom: 20px;
   }
 `;
